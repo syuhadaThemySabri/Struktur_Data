@@ -57,21 +57,29 @@ void addFirst(char nim[], char nama[], char nilai[], list *L)
 // fungsi untuk menambahkan pada list di tengah-tengah
 void addAfter(elemen *previous, char nim[], char nama[], char nilai[], list *L)
 {
-    elemen *new;
-    new = (elemen *)malloc(sizeof(elemen));
-    strcpy(new->kontainer.nim, nim);
-    strcpy(new->kontainer.nama, nama);
-    strcpy(new->kontainer.nilai, nilai);
-    if (previous->next == NULL)
+    if (previous != NULL) // cek kalo null dia ga bisa nambah elemen soalnya
     {
-        new->next = NULL;
+        // kalo ga null dia bisa nambah elemen baru
+        elemen *new;
+        new = (elemen *)malloc(sizeof(elemen));
+        strcpy(new->kontainer.nim, nim);
+        strcpy(new->kontainer.nama, nama);
+        strcpy(new->kontainer.nilai, nilai);
+        if (previous->next == NULL)
+        {
+            new->next = NULL;
+        }
+        else
+        {
+            new->next = previous->next;
+        }
+        previous->next = new;
+        new = NULL;
     }
-    else
+    else // kalo previousnya null maka kasih error message
     {
-        new->next = previous->next;
+        printf("Error due to the previous element is null.\n");
     }
-    previous->next = new;
-    new = NULL;
 }
 
 // fungsi untuk menambahkan elemen pada urutan terakhir di dalam list
