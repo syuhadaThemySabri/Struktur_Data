@@ -127,19 +127,26 @@ void delFirst(list *L)
 // fungsi untuk menghapus elemen yang berada di tengah-tengah list
 void delAfter(elemen *previous, list *L)
 {
-    elemen *remove = previous->next;
-    if (remove != NULL)
+    if (previous != NULL)
     {
-        if (remove->next == NULL)
+        elemen *remove = previous->next;
+        if (remove != NULL)
         {
-            previous->next = NULL;
+            if (remove->next == NULL)
+            {
+                previous->next = NULL;
+            }
+            else
+            {
+                previous->next = remove->next;
+                remove->next = NULL;
+            }
+            free(remove);
         }
-        else
-        {
-            previous->next = remove->next;
-            remove->next = NULL;
-        }
-        free(remove);
+    }
+    else
+    {
+        printf("Error due to the previous element is null.\n");
     }
 }
 
