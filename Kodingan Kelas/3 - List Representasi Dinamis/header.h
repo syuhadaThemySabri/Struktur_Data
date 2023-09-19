@@ -14,9 +14,20 @@ typedef struct elmt
 {
     nilaiMatkul kontainer;
     alamatelmt next;
-} elemen; 
+} elemen;
 
 typedef struct
 {
     elemen *first; // karena udah dikasih nama, si pointer sementara bisa dihapus
 } list;
+
+void createList(list *L);
+int countElement(list L);
+void addFirst(char nim[], char nama[], char nilai[], list *L);
+void addAfter(elemen *previous, char nim[], char nama[], char nilai[], list *L);
+void addLast(char nim[], char nama[], char nilai[], list *L);
+void delFirst(list *L);
+void delAfter(elemen *previous, list *L);
+void delLast(list *L);
+void printElement(list L);
+void delAll(list *L);
