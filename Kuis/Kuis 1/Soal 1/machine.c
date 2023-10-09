@@ -1,11 +1,11 @@
 /*
 Bismillah
 Saya Themy Sabri Syuhada dengan NIM 2203903
-berjanji mengerjakan tes mesin 2 dengan jujur
-demi keberkahan-Nya.
+dengan ini menyatakan mengerjakan kuis 1
+secara jujur tanpa melakukan kecurangan seperti yang telah dispesifikasikan
+demi mengharapkan keberkahan-Nya
 Aamiin
 */
-
 #include "header.h"
 
 // fungsi untuk membuat list
@@ -211,8 +211,7 @@ void printElement(list L, int tahun)
     else
     {
         /*proses jika list kosong*/
-        // printf("list kosong\n");
-        printf(":( :( :( :( :( :( :( :( :( :(\n\n");
+        printf("list kosong\n");
     }
 }
 
