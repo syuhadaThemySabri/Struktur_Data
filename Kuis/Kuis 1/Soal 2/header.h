@@ -6,36 +6,24 @@ secara jujur tanpa melakukan kecurangan seperti yang telah dispesifikasikan
 demi mengharapkan keberkahan-Nya
 Aamiin
 */
-#include <string.h>
 #include <stdio.h>
 #include <malloc.h>
+#include <string.h>
 
-typedef struct
+// Struktur node untuk list ganda
+struct Node
 {
-    char namaIdol[50];
-    char namaGrup[50];
-    int tahunLahir;
-} nilaiMatkul;
+    int order;
+    char data[50];
+    struct Node *next;
+    struct Node *prev;
+};
 
-typedef struct elmt /*elmt itu untuk alokasi pointer yang belum didefinisikan tipe datanya*/ *alamatelmt /*nama pointer sementara*/;
-typedef struct elmt
-{
-    nilaiMatkul kontainer;
-    alamatelmt next;
-} elemen;
+// Fungsi untuk membuat node baru
+int createNode(int order, const char *data);
 
-typedef struct
-{
-    elemen *first; // karena udah dikasih nama, si pointer sementara bisa dihapus
-} list;
+// Fungsi untuk menampilkan kromosom
+void displayChromosome(struct Node *head, int fromFront);
 
-void createList(list *L);
-int countElement(list L);
-void addFirst(char namaIdol[], char namaGrup[], int tahunLahir, list *L);
-void addAfter(elemen *previous, char namaIdol[], char namaGrup[], int tahunLahir, list *L);
-void addLast(char namaIdol[], char namaGrup[], int tahunLahir, list *L);
-void delFirst(list *L);
-void delAfter(elemen *previous, list *L);
-void delLast(list *L);
-void printElement(list L, int tahun);
-void delAll(list *L);
+// Fungsi untuk melakukan pertukaran gen antara dua kromosom
+void exchangeGen(struct Node *chromosome1, struct Node *chromosome2, int order1, int order2);

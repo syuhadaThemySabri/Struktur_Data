@@ -8,34 +8,34 @@ Aamiin
 */
 #include <string.h>
 #include <stdio.h>
-#include <malloc.h>
 
 typedef struct
 {
-    char namaIdol[50];
-    char namaGrup[50];
-    int tahunLahir;
-} nilaiMatkul;
+    int hargaMenu;
+    char namaMenu[51];
+    char statusMenu[51];
+} dataMenu;
 
-typedef struct elmt /*elmt itu untuk alokasi pointer yang belum didefinisikan tipe datanya*/ *alamatelmt /*nama pointer sementara*/;
-typedef struct elmt
+typedef struct
 {
-    nilaiMatkul kontainer;
-    alamatelmt next;
+    dataMenu kontainer;
+    int next;
 } elemen;
 
 typedef struct
 {
-    elemen *first; // karena udah dikasih nama, si pointer sementara bisa dihapus
+    int first;
+    elemen data[10];
 } list;
 
 void createList(list *L);
 int countElement(list L);
-void addFirst(char namaIdol[], char namaGrup[], int tahunLahir, list *L);
-void addAfter(elemen *previous, char namaIdol[], char namaGrup[], int tahunLahir, list *L);
-void addLast(char namaIdol[], char namaGrup[], int tahunLahir, list *L);
+int emptyElement(list L);
+void addFirst(char namaMenu[], int hargaMenu, char statusMenu[], list *L);
+void addAfter(int previous, char namaMenu[], int hargaMenu, char statusMenu[], list *L);
+void addLast(char namaMenu[], int hargaMenu, char statusMenu[], list *L);
 void delFirst(list *L);
-void delAfter(elemen *previous, list *L);
+void delAfter(int previous, list *L);
 void delLast(list *L);
-void printElement(list L, int tahun);
+void printElement(list L);
 void delAll(list *L);

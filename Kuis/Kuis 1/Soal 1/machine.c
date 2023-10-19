@@ -8,225 +8,265 @@ Aamiin
 */
 #include "header.h"
 
-// fungsi untuk membuat list
+// bikin list pake pass by reference
 void createList(list *L)
 {
-    (*L).first = NULL;
-}
+    (*L).first = -1;
+    int i; // variable counter for looping
 
-// fungsi untuk menghitung elemen
-int countElement(list L)
-{
-    int result = 0;
-
-    if (L.first != NULL)
+    for (i = 0; i < 10; i++)
     {
-        // Kalo listnya ga kosong
-        elemen *pointer;
-
-        // inisialisasi proses
-        pointer = L.first;
-
-        // selama pointernya gak null
-        while (pointer != NULL)
-        {
-            // proses dieksekusi
-            result++;
-            // iterasi
-            pointer = pointer->next;
-        }
+        // inisialisasi isi array
+        (*L).data[i].next = -2;
     }
-
-    // mengembalikan nilai hasil
-    return result;
 }
 
-// fungsi untuk menambahkan list pada urutan pertama
-void addFirst(char namaIdol[], char namaGrup[], int tahunLahir, list *L)
+// // buat count element supaya tau jumlah elemen di list
+// int countElement(list L)
+// {
+//     int result = 0;
+//     if (L.first != -1)
+//     {
+//         // kalo list ga kosong
+//         int count;
+
+//         // inisialisasi
+//         count = L.first;
+
+//         // selama counternya bukan -1
+//         while (count != -1)
+//         {
+//             // proses dimulai
+//             result += 1;
+
+//             // iterasi
+//             count = L.data[count].next;
+//         }
+//     }
+
+//     // mengembalikan nilai result
+//     return result;
+// }
+
+// int emptyElement(list L)
+// {
+//     int result = -1; // set nilai result
+
+//     if (countElement(L) < 10)
+//     {
+//         int find = 0;
+//         int varLoop = 0;
+
+//         // selama find == 0 (belom ditemukan) dan varLoop kurang dari 10
+//         while ((find == 0) && (varLoop < 10))
+//         {
+//             if (L.data[varLoop].next == -2)
+//             {
+//                 result = varLoop;
+//                 find = 1;
+//             }
+//             else
+//             {
+//                 varLoop++;
+//             }
+//         }
+//     }
+
+//     // mengembalikan nilai result
+//     return result;
+// }
+
+void addFirst(char namaMenu[], int hargaMenu, char statusMenu[], list *L)
 {
-    elemen *new;
-    new = (elemen *)malloc(sizeof(elemen)); // assign alokasi pointer memori ke variabel new
-    // assign the nim, nama, and nilai value
-    strcpy(new->kontainer.namaIdol, namaIdol);
-    strcpy(new->kontainer.namaGrup, namaGrup);
-    new->kontainer.tahunLahir = tahunLahir;
-    if ((*L).first == NULL)
+
+    int new = emptyElement(*L); // digunakan untuk mengembalikan nilai yang masih kosong
+    strcpy((*L).data[new].kontainer.namaMenu, namaMenu);
+    (*L).data[new].kontainer.hargaMenu = hargaMenu;
+    strcpy((*L).data[new].kontainer.statusMenu, statusMenu);
+
+    if ((*L).first == -1)
     {
-        new->next = NULL;
+        // cek dulu kalo listnya kosong
+        (*L).data[new].next = -1;
     }
     else
     {
-        new->next = (*L).first;
+        // kalo listnya ga kosong nih
+        (*L).data[new].next = (*L).first; // yang barunya harus nyapa dulu biar ga jadi zombie
     }
+
     (*L).first = new;
-    new = NULL;
 }
+// else
+// {
+//     // proses dieksekusi kalo arraynya penuh
+//     printf("Array sudah penuh dan sudah tidak bisa ditambah lagi.\n");
+// }
 
-// fungsi untuk menambahkan pada list di tengah-tengah
-void addAfter(elemen *previous, char namaIdol[], char namaGrup[], int tahunLahir, list *L)
+void addAfter(int previous, char namaMenu[], int hargaMenu, char statusMenu[], list *L)
 {
-    if (previous != NULL) // cek kalo null dia ga bisa nambah elemen soalnya
-    {
-        // kalo ga null dia bisa nambah elemen baru
-        elemen *new;
-        new = (elemen *)malloc(sizeof(elemen));
-        strcpy(new->kontainer.namaIdol, namaIdol);
-        strcpy(new->kontainer.namaGrup, namaGrup);
-        new->kontainer.tahunLahir = tahunLahir;
-        if (previous->next == NULL)
-        {
-            new->next = NULL;
-        }
-        else
-        {
-            new->next = previous->next;
-        }
-        previous->next = new;
-        new = NULL;
-    }
-    else // kalo previousnya null maka kasih error message
-    {
-        printf("Error due to the previous element is null.\n");
-    }
-}
+    int new = emptyElement(*L);
 
-// fungsi untuk menambahkan elemen pada urutan terakhir di dalam list
-void addLast(char namaIdol[], char namaGrup[], int tahunLahir, list *L)
-{
-    if ((*L).first == NULL)
+    strcpy((*L).data[new].kontainer.namaMenu, namaMenu);
+    (*L).data[new].kontainer.hargaMenu = hargaMenu;
+    strcpy((*L).data[new].kontainer.statusMenu, statusMenu);
+
+    if ((*L).data[previous].next == 1)
     {
-        /*jika list adalah list kosong*/
-        addFirst(namaIdol, namaGrup, tahunLahir, L);
+        (*L).data[new].next = -1; // kalo mau nambah di belakang
     }
     else
     {
-        /*jika list tidak kosong*/
-        /*mencari elemen terakhir list*/
-        elemen *prev = (*L).first;
-        while (prev->next != NULL)
-        {
-            /*iterasi*/
-            prev = prev->next;
-        }
-        addAfter(prev, namaIdol, namaGrup, tahunLahir, L);
+        (*L).data[new].next = (*L).data[previous].next; // tambah elemen di tengah
     }
+    (*L).data[previous].next = new;
 }
 
-// fungsi untuk menghapus elemen pertama pada list
-void delFirst(list *L)
+void addLast(char namaMenu[], int hargaMenu, char statusMenu[], list *L)
 {
-    if ((*L).first != NULL)
+    if ((*L).first == -1)
     {
-        /*jika list bukan list kosong*/
-        elemen *remove = (*L).first;
-        if (countElement(*L) == 1)
-        {
-            (*L).first = NULL;
-        }
-        else
-        {
-            (*L).first = (*L).first->next;
-            remove->next = NULL;
-        }
-        free(remove);
-    }
-}
-
-// fungsi untuk menghapus elemen yang berada di tengah-tengah list
-void delAfter(elemen *previous, list *L)
-{
-    if (previous != NULL)
-    {
-        elemen *remove = previous->next;
-        if (remove != NULL)
-        {
-            if (remove->next == NULL)
-            {
-                previous->next = NULL;
-            }
-            else
-            {
-                previous->next = remove->next;
-                remove->next = NULL;
-            }
-            free(remove);
-        }
+        // kalo listnya masih kosong
+        addFirst(namaMenu, hargaMenu, statusMenu, L); // dijadiin elemen pertama karena listnya masih kosong
     }
     else
     {
-        printf("Error due to the previous element is null.\n");
+        // proses kalo listnya sudah berisi dengan elemeen
+        // if (countElement(*L) < 10)
+        // {
+        // kalo arraynya masih belum penuh
+        // akan mencari elemen terakhir
+        // proses inisialisasi di bawah
+        int previous = (*L).first;
+
+        while ((*L).data[previous].next != -1)
+        {
+            // proses iterasi
+            previous = (*L).data[previous].next; // bakal maju terus ke depan
+        }
+
+        addAfter(previous, namaMenu, hargaMenu, statusMenu, L);
+        // }
+        // else
+        // {
+        //     // Kalo arraynya udah penuh
+        //     printf("Array sudah penuh dan sudah tidak bisa ditambah lagi.\n");
+        // }
     }
 }
 
-// fungsi untuk menghapus elemen terakhir pada list
-void delLast(list *L)
+// void delFirst(list *L)
+// {
+//     if ((*L).first != -1) // dicek dulu jangan sampai null karena mau dihapus
+//     {
+//         int remove = (*L).first;
+//         if (countElement(*L) == 1) // kalo elemennya cuma 1
+//         {
+//             (*L).first = -1;
+//         }
+//         else // kalo elemennya banyak (jamak/lebih dari satu)
+//         {
+//             (*L).first = (*L).data[remove].next;
+//         }
+
+//         // elemen paling pertama sebelumnya dikosongkan
+//         (*L).data[remove].next = -2;
+//     }
+//     else
+//     {
+//         // kalo listnya masih kosong
+//         printf("Li$t Ko$ong\n");
+//     }
+// }
+
+// void delAfter(int previous, list *L)
+// {
+//     int remove = (*L).data[previous].next; // cek remove apakah null atau ga
+
+//     if (remove != -1) // cek kondisi
+//     {
+//         // hapus elemen terakhir
+//         if ((*L).data[remove].next == -1)
+//         {
+//             (*L).data[previous].next = -1;
+//         }
+//         else
+//         {
+//             // hapus elemen yang ada di tengah list
+//             (*L).data[previous].next = (*L).data[remove].next;
+//         }
+//         // dilakukan pengosongan elemen
+//         (*L).data[remove].next = -2;
+//     }
+// }
+
+// void delLast(list *L)
+// {
+//     if ((*L).first != -1) // cek kondisi apakah null atau tidak
+//     {
+//         if (countElement(*L) == 1)
+//         {
+//             // kalo listnya hanya berisi 1 elemen
+//             delFirst(L);
+//         }
+//         else
+//         {
+//             int remove = (*L).first;
+//             int previous;
+//             while ((*L).data[remove].next != -1)
+//             {
+//                 // proses iterasi
+//                 previous = remove;
+//                 remove = (*L).data[remove].next;
+//             }
+//             // elemen yang asalnya -1 dari elemen terakhir akan menjadi elemen terakhir
+//             delAfter(previous, L);
+//         }
+//     }
+//     // else
+//     // {
+//     //     // kalo listnya kosong
+//     //     printf("Li$t Ko$ong\n");
+//     //     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+//     // }
+// }
+
+// print all element on the list
+void printElement(list L)
 {
-
-    if ((*L).first != NULL)
+    if (L.first != -1)
     {
-        /*jika list tidak kosong*/
-        if (countElement(*L) == 1)
-        {
-            /*list terdiri dari satu elemen*/
-            delFirst(L);
-        }
-        else
-        {
-            /*mencari elemen terakhir list*/
-            elemen *last = (*L).first;
-            elemen *previous;
+        // inisialisasi
+        int pointer = L.first;
 
-            while (last->next != NULL)
-            {
-                /*iterasi*/
-                previous = last;
-                last = last->next;
-            }
-            delAfter(previous, L);
+        while (pointer != -1)
+        {
+            // proses menampilkan elemen
+            printf("%d %s\n", L.data[pointer].kontainer.hargaMenu, L.data[pointer].kontainer.namaMenu);
+
+            // iterasi
+            pointer = L.data[pointer].next;
         }
     }
+    // else
+    // {
+    //     // kalo listnya kosong
+    //     printf("List Koong\n");
+    // }
+    // printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 }
 
-// fungsi untuk print list
-void printElement(list L, int tahun)
-{
-    if (L.first != NULL)
-    {
-        /*jika list tidak kosong*/
-        /*inisialisasi*/
-        elemen *tunjuk = L.first;
-        int counter = 1;
-        printf(":) :) :) :) :) :) :) :) :) :)\n");
-        while (tunjuk != NULL)
-        {
-            /*proses*/
-            printf("%s ", tunjuk->kontainer.namaIdol);
-            printf("%s - ", tunjuk->kontainer.namaGrup);
-            printf("%d tahun\n", tahun - tunjuk->kontainer.tahunLahir);
-            /*iterasi*/
-            tunjuk = tunjuk->next;
-            counter++;
-        }
-    }
-    else
-    {
-        /*proses jika list kosong*/
-        printf("list kosong\n");
-    }
-}
+// delete all element on the list
+// void delAll(list *L)
+// {
+//     int counter; // counter var for looping
+//     for (counter = countElement(*L); counter >= 1; counter--)
+//     {
+//         // proses mengahpus semua elemen di dalam list
+//         delLast(L);
+//     }
+// }
 
-// fungsi untuk menghapus seluruh elemen di dalam list
-void delAll(list *L)
-{
-
-    if (countElement(*L) != 0)
-    {
-        int counter;
-
-        for (counter = countElement(*L); counter >= 1; counter--)
-        {
-            /*proses menghapus elemen list*/
-            delLast(L);
-        }
-    }
-}
+// void check(list *L)
+// {
+// }

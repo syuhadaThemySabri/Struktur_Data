@@ -10,8 +10,36 @@ Aamiin
 
 int main()
 {
-    list L;
-    createList(&L);
+    int input;
+    int harga;
+    char namaMenu[51];
+    char statusMenu[51];
+
+    list promo, reguler, tampung;
+    createList(&promo);
+    createList(&reguler);
+    createList(&tampung);
+
+    scanf("%d", &input);
+
+    for (int i = 0; i < input; i++)
+    {
+        scanf("%d %s %s", &harga, &namaMenu, &statusMenu);
+        if (strcmp(statusMenu, "promo") == 0)
+        {
+            addLast(namaMenu, harga, statusMenu, &promo);
+        }
+        else
+        {
+            addLast(namaMenu, harga, statusMenu, &reguler);
+        }
+    }
+
+    printf("list promo:\n");
+    printElement(promo);
+    printf("\n");
+    printf("list reguler:\n");
+    printElement(reguler);
 
     return 0;
 }
