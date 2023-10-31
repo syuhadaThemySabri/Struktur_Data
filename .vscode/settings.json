@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "header.h": "c",
-        "malloc.h": "c"
+        "malloc.h": "c",
+        "stackdinamis.h": "c"
     }
 }

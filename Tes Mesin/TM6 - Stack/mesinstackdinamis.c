@@ -1,3 +1,10 @@
+/*
+Bismillah
+Saya Themy Sabri Syuhada dengan NIM 2203903
+berjanji mengerjakan tes mesin 6 dengan jujur
+demi keberkahan-Nya.
+Aamiin
+*/
 #include "stackdinamis.h"
 
 void createEmptyStack(stack *S)
@@ -35,13 +42,12 @@ int countElement(stack S)
     return result;
 }
 
-void pushToStack(char nim[], char nama[], float nilai, stack *S)
+void pushToStack(char buku[], int harga, stack *S)
 {
     elemen *new;
     new = (elemen *)malloc(sizeof(elemen));
-    strcpy(new->kontainer.nim, nim);
-    strcpy(new->kontainer.nama, nama);
-    new->kontainer.nilai = nilai;
+    strcpy(new->kontainer.buku, buku);
+    new->kontainer.harga = harga;
     if ((*S).top == NULL)
     {
         // jika stack kosong
@@ -79,7 +85,7 @@ void popOutStack(stack *S)
     }
 }
 
-void *popStackAndReturn(stack *S)
+void popStackAndReturn(stack *S, stack *T)
 {
     if ((*S).top != NULL)
     {
@@ -93,17 +99,26 @@ void *popStackAndReturn(stack *S)
         {
             (*S).top = (*S).top->next;
         }
-        remove->next = NULL;
+        if ((*T).top == NULL)
+        {
+            // jika stack kosong
+            remove->next = NULL;
+        }
+        else
+        {
+            // jika stack tidak kosong
+            remove->next = (*T).top;
+        }
+        (*T).top = remove;
     }
-    return remove;
 }
 
 void printStack(stack S)
 {
 
+    printf("Buku di S1:\n");
     if (S.top != NULL)
     {
-        printf("------isi stack------\n");
 
         elemen *bantu = S.top;
 
@@ -111,20 +126,41 @@ void printStack(stack S)
 
         while (bantu != NULL)
         {
-            printf("====================\n");
-            printf("elemen ke : %d\n", i);
-            printf("nim : %s\n", bantu->kontainer.nim);
-            printf("nama : %s\n", bantu->kontainer.nama);
-            printf("nilai : %f\n", bantu->kontainer.nilai);
+            printf("%d. %s Rp.%d\n", i, bantu->kontainer.buku, bantu->kontainer.harga);
             /* iterasi */
             bantu = bantu->next;
             i = i + 1;
         }
-        printf("---------------------\n");
     }
     else
     {
         /* proses jika stack kosong */
-        printf("Stack Kosong\n");
+        printf("- Kosong\n");
+    }
+}
+
+void printStack2(stack T)
+{
+
+    printf("Buku di S2:\n");
+    if (T.top != NULL)
+    {
+
+        elemen *bantu = T.top;
+
+        int i = 1;
+
+        while (bantu != NULL)
+        {
+            printf("%d. %s Rp.%d\n", i, bantu->kontainer.buku, bantu->kontainer.harga);
+            /* iterasi */
+            bantu = bantu->next;
+            i = i + 1;
+        }
+    }
+    else
+    {
+        /* proses jika stack kosong */
+        printf("- Kosong\n");
     }
 }
