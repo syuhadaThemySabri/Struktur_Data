@@ -3,17 +3,20 @@
 int main()
 {
     queue Q;
+    queue R;
     createEmpty(&Q);
+    createEmpty(&R);
+    nilaiMatKul aot;
+
+    scanf("%s %d", aot.nama, aot.nim);
+    add(aot.nim, aot.nama, &Q);
+    scanf("%s %d", aot.nama, aot.nim);
+    add(aot.nim, aot.nama, &Q);
     printQueue(Q);
     printf("=================\n");
-    add("13507701", "Nana", 64.75, &Q);
-    add("13507702", "Rudi", 75.11, &Q);
-    add("13507703", "Dea", 84.63, &Q);
-    printQueue(Q);
-    printf("=================\n");
-    del(&Q);
-    del(&Q);
-    printQueue(Q);
+    del(&Q, &R);
+    del(&Q, &R);
+    printQueue(R);
     printf("=================\n");
     return 0;
 }

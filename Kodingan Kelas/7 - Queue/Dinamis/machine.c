@@ -37,13 +37,12 @@ int countElement(queue Q)
     return hasil;
 }
 
-void add(char nim[], char nama[], float nilai, queue *Q)
+void add(int nim, char nama[], queue *Q)
 {
     elemen *baru;
     baru = (elemen *)malloc(sizeof(elemen));
-    strcpy(baru->kontainer.nim, nim);
     strcpy(baru->kontainer.nama, nama);
-    baru->kontainer.nilai = nilai;
+    baru->kontainer.nim = nim;
     baru->next = NULL;
     if ((*Q).first == NULL)
     {
@@ -57,7 +56,7 @@ void add(char nim[], char nama[], float nilai, queue *Q)
     baru = NULL;
 }
 
-void del(queue *Q)
+void del(queue *Q, queue *R)
 {
     if ((*Q).first != NULL)
     {
@@ -73,7 +72,6 @@ void del(queue *Q)
             (*Q).first = (*Q).first->next;
             hapus->next = NULL;
         }
-        free(hapus);
     }
 }
 
@@ -90,7 +88,6 @@ void printQueue(queue Q)
             printf("elemen ke : %d\n", i);
             printf("nim : %s\n", bantu->kontainer.nim);
             printf("nama : %s\n", bantu->kontainer.nama);
-            printf("nilai : %f\n", bantu->kontainer.nilai);
 
             /* iterasi */
             bantu = bantu->next;

@@ -4,9 +4,8 @@
 
 typedef struct
 {
-    char nim[10];
     char nama[50];
-    float nilai;
+    char nim;
 } nilaiMatKul;
 
 typedef struct elm *alamatelmt;
@@ -25,6 +24,6 @@ typedef struct
 void createEmpty(queue *Q);
 int isEmpty(queue Q);
 int isFull(queue Q);
-void add(char nim[], char nama[], float nilai, queue *Q);
-void del(queue *Q);
+void add(int nim, char nama[], queue *Q);
+void del(queue *Q, queue *R);
 void printQueue(queue Q);
