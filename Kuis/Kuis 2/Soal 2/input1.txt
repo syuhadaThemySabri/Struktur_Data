@@ -1,0 +1,12 @@
+10
+kedai fuyunghai 15000 17 0 0
+pinara nasi_goreng 15000 17 0 1
+masa_depanku nasi_goreng 15000 18 10 1
+pinara sapo_tahu 15000 17 0 1
+masa_depanku ayam_teriyaki 17000 18 10 1
+masa depanku capcay 18000 18 10 1
+demit telur_caishiu 17 15 15
+demit ayam_caishiu 17 15 15
+demit bakmi_cabe_garam 17 15 15
+pacarnya_haecan tahu_tausi 22 0 1
+0

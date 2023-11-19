@@ -1,0 +1,11 @@
+10
+yellow 24 12 yolanda
+yellow 24 12 yolanda
+yellow 34 13 vanny
+orange 34 13 horan
+orange 30 12 neil
+yellow 24 12 yolanda
+red 78 100 rose
+red 78 100 rose
+green 67 19 groo
+green 68 19 hera
