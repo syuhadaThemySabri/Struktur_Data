@@ -1,41 +1,61 @@
+/*
+Bismillah
+Saya Themy Sabri Syuhada dengan NIM 2203903
+berjanji mengerjakan tes mesin 8 dengan jujur
+demi keberkahan-Nya.
+Aamiin
+*/
 #include "header.h"
 
 int main()
 {
+    char input;
     tree T;
-    makeTree('A', &T);
-    addLeft('B', T.root);
-    addRight('C', T.root);
-    addLeft('D', T.root->left);
-    addRight('E', T.root->left);
-    addRight('F', T.root->right);
-    printf("=================\n");
-    printf("preOrder\n");
+    //
+    scanf(" %c", &input);
+    makeTree(input, &T);
+    scanf(" %c", &input);
+    addRight(input, T.root);
+    scanf(" %c", &input);
+    addLeft(input, T.root);
+    scanf(" %c", &input);
+    addLeft(input, T.root->right);
+    //
+    scanf(" %c", &input);
+    addRight(input, T.root->left);
+    scanf(" %c", &input);
+    addRight(input, T.root->right);
+    scanf(" %c", &input);
+    addLeft(input, T.root->left->right);
+    //
+    scanf(" %c", &input);
+    addRight(input, T.root->right->left);
+    scanf(" %c", &input);
+    addRight(input, T.root->left->right);
+    scanf(" %c", &input);
+    addRight(input, T.root->right->right);
+    //
+    scanf(" %c", &input);
+    addLeft(input, T.root->right->right);
+    scanf(" %c", &input);
+    addLeft(input, T.root->left->right->left);
+    scanf(" %c", &input);
+    addLeft(input, T.root->right->left->right);
+    //
+    scanf(" %c", &input);
+    addRight(input, T.root->right->left->right);
+    //
+    printf("Pre Order:\n");
     printTreePreOrder(T.root);
-    printf("\n=================\n");
-    printf("inOrder\n");
+    printf("\n");
+    delLeft(T.root->left->right->left);
+    printf("In Order:\n");
     printTreeInOrder(T.root);
-    printf("\n=================\n");
-    printf("postOrder\n");
+    printf("\n");
+    delRight(T.root->right->right);
+    printf("Post Order:\n");
     printTreePostOrder(T.root);
-    printf("\n=================\n");
-    tree T2;
-    copyTree(T.root, &T2.root);
-    if (isEqual(T.root, T2.root) == 1)
-    {
-        printf("pohon sama\n");
-    }
-    else
-    {
-        printf("pohon tidak sama\n");
-    }
-
-    delRight(T.root->left);
-    delLeft(T.root->left);
-    printf("=================\n");
-    printf("preOrder setelah dihapus\n");
-    printTreePreOrder(T.root);
-    printf("\n=================\n");
+    printf("\n");
 
     return 0;
 }
